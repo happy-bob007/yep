@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tetris Game</title>
     <style>
         * {
@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             justify-content: center;
@@ -237,7 +237,6 @@
             opacity: 0.8;
         }
 
-        /* --- SECRET MENU STYLES --- */
         .secret-menu {
             position: fixed;
             top: 50%;
@@ -251,7 +250,7 @@
             z-index: 1001;
             border: 2px solid #a855f7;
             box-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
-            min-width: 350px;
+            min-width: 420px;
             backdrop-filter: blur(10px);
         }
 
@@ -285,6 +284,7 @@
             transition: all 0.2s;
             margin-top: 0;
             width: 100%;
+            user-select: none;
         }
 
         .piece-btn:hover {
@@ -301,6 +301,7 @@
             display: flex;
             gap: 10px;
             justify-content: space-between;
+            margin-top: 16px;
         }
 
         .menu-controls button {
@@ -308,10 +309,185 @@
             padding: 12px 10px;
             margin-top: 0;
         }
-        
-        #confirmRigBtn { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); }
-        #resetRigBtn { background: linear-gradient(135deg, #facc15 0%, #eab308 100%); color: #000; }
-        #closeRigBtn { background: linear-gradient(135deg, #f87171 0%, #ef4444 100%); }
+
+        #confirmRigBtn {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+        }
+
+        #resetRigBtn {
+            background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+            color: #000;
+        }
+
+        #closeRigBtn {
+            background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+        }
+
+        .custom-toggle-btn {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            margin-top: 6px;
+        }
+
+        .custom-creator {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            text-align: left;
+            display: none;
+        }
+
+        .custom-creator.show {
+            display: block;
+        }
+
+        .custom-creator h3 {
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .drawer-size-controls {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 10px 0 12px;
+        }
+
+        .drawer-size-controls label {
+            font-size: 12px;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .drawer-size-controls input[type="number"] {
+            width: 70px;
+            border: none;
+            outline: none;
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 13px;
+        }
+
+        .drawer-size-controls button {
+            width: auto;
+            margin-top: 0;
+            padding: 9px 12px;
+            font-size: 12px;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .custom-grid {
+            display: grid;
+            gap: 6px;
+            justify-content: center;
+            margin: 12px 0 14px;
+        }
+
+        .custom-cell {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.06);
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            transition: transform 0.12s, background 0.12s;
+        }
+
+        .custom-cell:hover {
+            transform: scale(1.05);
+        }
+
+        .custom-cell.filled {
+            background: #ffffff;
+        }
+
+        .custom-tools {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .custom-tools input[type="text"] {
+            flex: 1;
+            min-width: 110px;
+            border: none;
+            outline: none;
+            border-radius: 8px;
+            padding: 9px 10px;
+            font-size: 13px;
+        }
+
+        .custom-tools input[type="color"] {
+            width: 42px;
+            height: 38px;
+            border: none;
+            background: transparent;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .custom-tools button {
+            width: auto;
+            margin-top: 0;
+            padding: 10px 12px;
+            font-size: 12px;
+            flex: 1;
+            min-width: 90px;
+        }
+
+        #saveCustomPieceBtn {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+        }
+
+        #clearCustomPieceBtn {
+            background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+            color: #000;
+        }
+
+        .piece-context-menu {
+            position: fixed;
+            display: none;
+            z-index: 3000;
+            background: rgba(15, 23, 42, 0.98);
+            border: 2px solid #a855f7;
+            border-radius: 14px;
+            padding: 8px;
+            min-width: 160px;
+            box-shadow: 0 0 24px rgba(168, 85, 247, 0.45);
+            backdrop-filter: blur(10px);
+        }
+
+        .piece-context-menu.show {
+            display: block;
+        }
+
+        .piece-context-menu button {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 13px;
+            padding: 10px 12px;
+            width: 100%;
+        }
+
+        .piece-context-menu button:last-child {
+            margin-bottom: 0;
+        }
+
+        .context-edit {
+            background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+        }
+
+        .context-delete {
+            background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+        }
     </style>
 </head>
 <body>
@@ -356,6 +532,7 @@
     <div class="secret-menu" id="secretMenu">
         <h2>Rigging Menu</h2>
         <p style="opacity: 0.8; font-size: 14px;">Select which pieces can spawn:</p>
+
         <div class="piece-selector" id="pieceSelector">
             <button class="piece-btn selected" data-piece="1" style="border-color: #FF0D72; color: #FF0D72;">I</button>
             <button class="piece-btn selected" data-piece="2" style="border-color: #0DC2FF; color: #0DC2FF;">J</button>
@@ -365,6 +542,29 @@
             <button class="piece-btn selected" data-piece="6" style="border-color: #FFE138; color: #FFE138;">T</button>
             <button class="piece-btn selected" data-piece="7" style="border-color: #3877FF; color: #3877FF;">Z</button>
         </div>
+
+        <button id="toggleCustomCreatorBtn" class="custom-toggle-btn">Open Custom Piece Maker</button>
+
+        <div class="custom-creator" id="customCreator">
+            <h3>Custom Piece Creator</h3>
+            <p style="opacity: 0.8; font-size: 13px;">Click cells to draw a piece.</p>
+
+            <div class="drawer-size-controls">
+                <label>Rows <input type="number" id="drawerRows" min="1" max="12" value="4"></label>
+                <label>Cols <input type="number" id="drawerCols" min="1" max="12" value="4"></label>
+                <button id="resizeDrawerBtn">Resize Drawer</button>
+            </div>
+
+            <div class="custom-grid" id="customPieceGrid"></div>
+
+            <div class="custom-tools">
+                <input type="text" id="customPieceName" placeholder="Name (optional)" maxlength="12" />
+                <input type="color" id="customPieceColor" value="#ffffff" title="Piece color" />
+                <button id="saveCustomPieceBtn">Save Piece</button>
+                <button id="clearCustomPieceBtn">Clear</button>
+            </div>
+        </div>
+
         <div class="menu-controls">
             <button id="confirmRigBtn">Confirm</button>
             <button id="resetRigBtn">Reset All</button>
@@ -372,14 +572,19 @@
         </div>
     </div>
 
+    <div class="piece-context-menu" id="pieceContextMenu">
+        <button class="context-edit" id="contextEditBtn">Edit Piece</button>
+        <button class="context-delete" id="contextDeleteBtn">Delete Piece</button>
+    </div>
+
     <div class="volume-control">
         <span>🔊</span>
-        <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeSlider">
+        <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeSlider" />
         <span id="volumePercent">50%</span>
     </div>
 
     <audio id="bgMusic" loop>
-        <source src="Tetris Soundtrack.mp3" type="audio/mpeg">
+        <source src="Tetris Soundtrack.mp3" type="audio/mpeg" />
     </audio>
 
     <script>
@@ -394,25 +599,83 @@
 
         const COLORS = [
             null,
-            '#FF0D72', // I
-            '#0DC2FF', // J
-            '#0DFF72', // L
-            '#F538FF', // O
-            '#FF8E0D', // S
-            '#FFE138', // T
-            '#3877FF'  // Z
+            '#FF0D72',
+            '#0DC2FF',
+            '#0DFF72',
+            '#F538FF',
+            '#FF8E0D',
+            '#FFE138',
+            '#3877FF'
         ];
 
         const SHAPES = [
             [],
-            [[1,1,1,1]], // I
-            [[1,0,0],[1,1,1]], // J
-            [[0,0,1],[1,1,1]], // L
-            [[1,1],[1,1]], // O
-            [[0,1,1],[1,1,0]], // S
-            [[0,1,0],[1,1,1]], // T
-            [[1,1,0],[0,1,1]]  // Z
+            [[1,1,1,1]],
+            [[1,0,0],[1,1,1]],
+            [[0,0,1],[1,1,1]],
+            [[1,1],[1,1]],
+            [[0,1,1],[1,1,0]],
+            [[0,1,0],[1,1,1]],
+            [[1,1,0],[0,1,1]]
         ];
+
+        const BASE_PIECES = [
+            { id: '1', name: 'I', shape: SHAPES[1], color: COLORS[1] },
+            { id: '2', name: 'J', shape: SHAPES[2], color: COLORS[2] },
+            { id: '3', name: 'L', shape: SHAPES[3], color: COLORS[3] },
+            { id: '4', name: 'O', shape: SHAPES[4], color: COLORS[4] },
+            { id: '5', name: 'S', shape: SHAPES[5], color: COLORS[5] },
+            { id: '6', name: 'T', shape: SHAPES[6], color: COLORS[6] },
+            { id: '7', name: 'Z', shape: SHAPES[7], color: COLORS[7] }
+        ];
+
+        // ── localStorage helpers ──────────────────────────────────────────────
+
+        const LS_CUSTOM_PIECES = 'tetris_customPieces';
+        const LS_ALLOWED_PIECES = 'tetris_allowedPieces';
+
+        function saveCustomPiecesToStorage() {
+            try {
+                localStorage.setItem(LS_CUSTOM_PIECES, JSON.stringify(customPieces));
+            } catch (e) { console.warn('Could not save custom pieces:', e); }
+        }
+
+        function loadCustomPiecesFromStorage() {
+            try {
+                const raw = localStorage.getItem(LS_CUSTOM_PIECES);
+                return raw ? JSON.parse(raw) : [];
+            } catch (e) { return []; }
+        }
+
+        function saveAllowedPiecesToStorage() {
+            try {
+                localStorage.setItem(LS_ALLOWED_PIECES, JSON.stringify(allowedPieces));
+            } catch (e) { console.warn('Could not save allowed pieces:', e); }
+        }
+
+        function loadAllowedPiecesFromStorage() {
+            try {
+                const raw = localStorage.getItem(LS_ALLOWED_PIECES);
+                return raw ? JSON.parse(raw) : null;
+            } catch (e) { return null; }
+        }
+
+        // ── Initialise catalogs from storage ────────────────────────────────
+
+        let customPieces = loadCustomPiecesFromStorage();
+        let pieceCatalog = [...BASE_PIECES, ...customPieces];
+
+        // Restore allowed pieces; fall back to all pieces if nothing saved yet
+        // or if any saved id no longer exists in the catalog.
+        let allowedPieces = (() => {
+            const saved = loadAllowedPiecesFromStorage();
+            if (saved && saved.length > 0) {
+                const validIds = new Set(pieceCatalog.map(p => p.id));
+                const filtered = saved.filter(id => validIds.has(id));
+                if (filtered.length > 0) return filtered;
+            }
+            return pieceCatalog.map(p => p.id);
+        })();
 
         let board = Array(ROWS).fill().map(() => Array(COLS).fill(0));
         let score = 0;
@@ -420,21 +683,148 @@
         let lines = 0;
         let gameOver = false;
         let paused = false;
-        let secretMenuOpen = false; // Tracks if the secret menu is currently open
+        let pausedBeforeMenu = false;
+        let secretMenuOpen = false;
         let currentPiece = null;
         let nextPiece = null;
         let dropCounter = 0;
         let dropInterval = 1000;
         let lastTime = 0;
-        
-        // This array dictates which pieces are allowed to spawn
-        let allowedPieces = [1, 2, 3, 4, 5, 6, 7];
+
+        let customGrid = Array.from({ length: 4 }, () => Array(4).fill(false));
+        let editingPieceId = null;
+        let contextTargetPieceId = null;
+
+        const secretMenu = document.getElementById('secretMenu');
+        const pieceSelector = document.getElementById('pieceSelector');
+        const pauseOverlay = document.getElementById('pauseOverlay');
+        const bgMusic = document.getElementById('bgMusic');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumePercent = document.getElementById('volumePercent');
+        const customCreator = document.getElementById('customCreator');
+        const toggleCustomCreatorBtn = document.getElementById('toggleCustomCreatorBtn');
+        const drawerRowsInput = document.getElementById('drawerRows');
+        const drawerColsInput = document.getElementById('drawerCols');
+        const customPieceGrid = document.getElementById('customPieceGrid');
+        const customPieceName = document.getElementById('customPieceName');
+        const customPieceColor = document.getElementById('customPieceColor');
+        const saveCustomPieceBtn = document.getElementById('saveCustomPieceBtn');
+        const pieceContextMenu = document.getElementById('pieceContextMenu');
+        const contextEditBtn = document.getElementById('contextEditBtn');
+        const contextDeleteBtn = document.getElementById('contextDeleteBtn');
+
+        // ── Inject saved custom piece buttons on load ────────────────────────
+        customPieces.forEach(piece => addCustomPieceButton(piece));
+        syncPieceButtonsFromAllowed();
+
+        // ─────────────────────────────────────────────────────────────────────
+
+        function cloneShape(shape) {
+            return shape.map(row => row.slice());
+        }
+
+        function getPieceData(id) {
+            return pieceCatalog.find(p => p.id === id);
+        }
+
+        function getDrawerSize() {
+            const rows = Math.max(1, Math.min(12, parseInt(drawerRowsInput.value, 10) || 4));
+            const cols = Math.max(1, Math.min(12, parseInt(drawerColsInput.value, 10) || 4));
+            return { rows, cols };
+        }
+
+        function resizeCustomGrid(rows, cols, preserve = true) {
+            const oldGrid = customGrid;
+            const newGrid = Array.from({ length: rows }, () => Array(cols).fill(false));
+
+            if (preserve) {
+                for (let y = 0; y < Math.min(rows, oldGrid.length); y++) {
+                    for (let x = 0; x < Math.min(cols, oldGrid[0].length); x++) {
+                        newGrid[y][x] = !!oldGrid[y][x];
+                    }
+                }
+            }
+
+            customGrid = newGrid;
+            renderCustomGrid();
+        }
+
+        function renderCustomGrid() {
+            const rows = customGrid.length;
+            const cols = customGrid[0].length;
+
+            customPieceGrid.style.gridTemplateColumns = `repeat(${cols}, 30px)`;
+            customPieceGrid.innerHTML = '';
+
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    const cell = document.createElement('button');
+                    cell.type = 'button';
+                    cell.className = 'custom-cell' + (customGrid[y][x] ? ' filled' : '');
+                    cell.dataset.x = x;
+                    cell.dataset.y = y;
+                    customPieceGrid.appendChild(cell);
+                }
+            }
+        }
+
+        function clearCustomGrid() {
+            customGrid = Array.from({ length: customGrid.length }, () => Array(customGrid[0].length).fill(false));
+            renderCustomGrid();
+        }
+
+        function trimShape(grid) {
+            let minX = grid[0].length;
+            let minY = grid.length;
+            let maxX = -1;
+            let maxY = -1;
+
+            for (let y = 0; y < grid.length; y++) {
+                for (let x = 0; x < grid[y].length; x++) {
+                    if (grid[y][x]) {
+                        minX = Math.min(minX, x);
+                        minY = Math.min(minY, y);
+                        maxX = Math.max(maxX, x);
+                        maxY = Math.max(maxY, y);
+                    }
+                }
+            }
+
+            if (maxX === -1) return null;
+
+            const shape = [];
+            for (let y = minY; y <= maxY; y++) {
+                const row = [];
+                for (let x = minX; x <= maxX; x++) {
+                    row.push(grid[y][x] ? 1 : 0);
+                }
+                shape.push(row);
+            }
+            return shape;
+        }
+
+        function loadShapeIntoGrid(shape) {
+            const rows = shape.length;
+            const cols = shape[0].length;
+            drawerRowsInput.value = rows;
+            drawerColsInput.value = cols;
+            customGrid = Array.from({ length: rows }, () => Array(cols).fill(false));
+
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    customGrid[y][x] = !!shape[y][x];
+                }
+            }
+
+            renderCustomGrid();
+        }
 
         class Piece {
-            constructor(type) {
-                this.type = type;
-                this.shape = SHAPES[type];
-                this.color = COLORS[type];
+            constructor(pieceData) {
+                this.id = pieceData.id;
+                this.name = pieceData.name;
+                this.shape = cloneShape(pieceData.shape);
+                this.color = pieceData.color;
                 this.x = Math.floor(COLS / 2) - Math.floor(this.shape[0].length / 2);
                 this.y = 0;
             }
@@ -444,10 +834,19 @@
                     this.shape.map(row => row[i]).reverse()
                 );
                 const previousShape = this.shape;
+                const previousX = this.x;
+
                 this.shape = newShape;
-                
+
                 if (this.collides()) {
-                    this.shape = previousShape;
+                    this.x = previousX - 1;
+                    if (this.collides()) {
+                        this.x = previousX + 1;
+                        if (this.collides()) {
+                            this.x = previousX;
+                            this.shape = previousShape;
+                        }
+                    }
                 }
             }
 
@@ -457,11 +856,11 @@
                         if (this.shape[y][x]) {
                             const newX = this.x + x;
                             const newY = this.y + y;
-                            
+
                             if (newX < 0 || newX >= COLS || newY >= ROWS) {
                                 return true;
                             }
-                            
+
                             if (newY >= 0 && board[newY][newX]) {
                                 return true;
                             }
@@ -475,17 +874,17 @@
                 for (let y = 0; y < this.shape.length; y++) {
                     for (let x = 0; x < this.shape[y].length; x++) {
                         if (this.shape[y][x]) {
-                            board[this.y + y][this.x + x] = this.type;
+                            board[this.y + y][this.x + x] = { color: this.color };
                         }
                     }
                 }
             }
         }
 
-        // Updated to use the allowedPieces array instead of hardcoded 1-7
         function randomPiece() {
-            const index = Math.floor(Math.random() * allowedPieces.length);
-            return new Piece(allowedPieces[index]);
+            const id = allowedPieces[Math.floor(Math.random() * allowedPieces.length)];
+            const data = getPieceData(id);
+            return new Piece(data);
         }
 
         function drawBlock(ctx, x, y, color) {
@@ -493,8 +892,7 @@
             ctx.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
             ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
             ctx.strokeRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-            
-            // Add gradient for 3D effect
+
             const gradient = ctx.createLinearGradient(
                 x * BLOCK_SIZE, y * BLOCK_SIZE,
                 (x + 1) * BLOCK_SIZE, (y + 1) * BLOCK_SIZE
@@ -508,11 +906,11 @@
         function drawBoard() {
             ctx.fillStyle = '#1a1a2e';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
+
             for (let y = 0; y < ROWS; y++) {
                 for (let x = 0; x < COLS; x++) {
                     if (board[y][x]) {
-                        drawBlock(ctx, x, y, COLORS[board[y][x]]);
+                        drawBlock(ctx, x, y, board[y][x].color);
                     }
                 }
             }
@@ -520,31 +918,29 @@
 
         function getGhostPosition() {
             if (!currentPiece) return null;
-            
-            let ghostY = currentPiece.y;
+
+            const originalY = currentPiece.y;
+            let ghostY = originalY;
+
             currentPiece.y++;
-            
+
             while (!currentPiece.collides()) {
                 ghostY++;
                 currentPiece.y++;
             }
-            
-            currentPiece.y = ghostY;
+
+            currentPiece.y = originalY;
             return ghostY;
         }
 
         function drawGhostPiece() {
             if (!currentPiece) return;
-            
+
             const originalY = currentPiece.y;
             const ghostY = getGhostPosition();
-            
-            if (ghostY === null || ghostY === originalY) {
-                currentPiece.y = originalY;
-                return;
-            }
-            
-            // Draw ghost piece with transparency
+
+            if (ghostY === null || ghostY === originalY) return;
+
             ctx.globalAlpha = 0.3;
             for (let y = 0; y < currentPiece.shape.length; y++) {
                 for (let x = 0; x < currentPiece.shape[y].length; x++) {
@@ -568,13 +964,11 @@
                 }
             }
             ctx.globalAlpha = 1.0;
-            
-            currentPiece.y = originalY;
         }
 
         function drawPiece() {
             if (!currentPiece) return;
-            
+
             for (let y = 0; y < currentPiece.shape.length; y++) {
                 for (let x = 0; x < currentPiece.shape[y].length; x++) {
                     if (currentPiece.shape[y][x]) {
@@ -587,13 +981,13 @@
         function drawNextPiece() {
             nextCtx.fillStyle = '#1a1a2e';
             nextCtx.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
-            
+
             if (!nextPiece) return;
-            
+
             const blockSize = 25;
             const offsetX = (nextCanvas.width - nextPiece.shape[0].length * blockSize) / 2;
             const offsetY = (nextCanvas.height - nextPiece.shape.length * blockSize) / 2;
-            
+
             for (let y = 0; y < nextPiece.shape.length; y++) {
                 for (let x = 0; x < nextPiece.shape[y].length; x++) {
                     if (nextPiece.shape[y][x]) {
@@ -617,6 +1011,8 @@
         }
 
         function moveDown() {
+            if (!currentPiece) return false;
+
             currentPiece.y++;
             if (currentPiece.collides()) {
                 currentPiece.y--;
@@ -629,6 +1025,7 @@
         }
 
         function moveLeft() {
+            if (!currentPiece) return;
             currentPiece.x--;
             if (currentPiece.collides()) {
                 currentPiece.x++;
@@ -636,6 +1033,7 @@
         }
 
         function moveRight() {
+            if (!currentPiece) return;
             currentPiece.x++;
             if (currentPiece.collides()) {
                 currentPiece.x--;
@@ -648,7 +1046,7 @@
 
         function clearLines() {
             let linesCleared = 0;
-            
+
             for (let y = ROWS - 1; y >= 0; y--) {
                 if (board[y].every(cell => cell !== 0)) {
                     board.splice(y, 1);
@@ -657,7 +1055,7 @@
                     y++;
                 }
             }
-            
+
             if (linesCleared > 0) {
                 lines += linesCleared;
                 score += [0, 100, 300, 500, 800][linesCleared] * level;
@@ -670,11 +1068,11 @@
         function spawnPiece() {
             currentPiece = nextPiece || randomPiece();
             nextPiece = randomPiece();
-            
+
             if (currentPiece.collides()) {
                 endGame();
             }
-            
+
             drawNextPiece();
         }
 
@@ -687,6 +1085,245 @@
             gameOver = true;
             document.getElementById('finalScore').textContent = score;
             document.getElementById('gameOver').classList.add('show');
+            bgMusic.pause();
+        }
+
+        function getPieceButtons() {
+            return document.querySelectorAll('#pieceSelector .piece-btn');
+        }
+
+        function syncPieceButtonsFromAllowed() {
+            getPieceButtons().forEach(btn => {
+                const id = btn.dataset.piece;
+                btn.classList.toggle('selected', allowedPieces.includes(id));
+            });
+        }
+
+        function addCustomPieceButton(piece) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'piece-btn selected';
+            btn.dataset.piece = piece.id;
+            btn.dataset.custom = 'true';
+            btn.textContent = piece.name;
+            btn.style.borderColor = piece.color;
+            btn.style.color = piece.color;
+            pieceSelector.appendChild(btn);
+            return btn;
+        }
+
+        function updateCustomPieceButton(piece) {
+            const btn = pieceSelector.querySelector(`.piece-btn[data-piece="${CSS.escape(piece.id)}"]`);
+            if (!btn) return;
+            btn.textContent = piece.name;
+            btn.style.borderColor = piece.color;
+            btn.style.color = piece.color;
+        }
+
+        function removeCustomPieceButton(pieceId) {
+            const btn = pieceSelector.querySelector(`.piece-btn[data-piece="${CSS.escape(pieceId)}"]`);
+            if (btn) btn.remove();
+        }
+
+        function openSecretMenu() {
+            if (gameOver) return;
+
+            pausedBeforeMenu = paused;
+            secretMenuOpen = true;
+            secretMenu.classList.add('show');
+            bgMusic.pause();
+
+            if (!pausedBeforeMenu) {
+                paused = true;
+                pauseOverlay.classList.remove('show');
+            }
+        }
+
+        function closeSecretMenu() {
+            hidePieceContextMenu();
+            secretMenu.classList.remove('show');
+            secretMenuOpen = false;
+            customCreator.classList.remove('show');
+            toggleCustomCreatorBtn.textContent = 'Open Custom Piece Maker';
+
+            if (pausedBeforeMenu) {
+                paused = true;
+                pauseOverlay.classList.add('show');
+            } else {
+                paused = false;
+                pauseOverlay.classList.remove('show');
+                if (!gameOver) {
+                    bgMusic.play().catch(e => console.log('Audio play failed:', e));
+                }
+            }
+
+            syncPieceButtonsFromAllowed();
+        }
+
+        function setSaveButtonMode() {
+            saveCustomPieceBtn.textContent = editingPieceId ? 'Update Piece' : 'Save Piece';
+        }
+
+        function openCustomCreator() {
+            customCreator.classList.add('show');
+            toggleCustomCreatorBtn.textContent = 'Hide Custom Piece Maker';
+            renderCustomGrid();
+        }
+
+        function closeCustomCreator() {
+            customCreator.classList.remove('show');
+            toggleCustomCreatorBtn.textContent = 'Open Custom Piece Maker';
+        }
+
+        function startNewCustomPiece() {
+            editingPieceId = null;
+            customPieceName.value = '';
+            customPieceColor.value = '#ffffff';
+            drawerRowsInput.value = 4;
+            drawerColsInput.value = 4;
+            resizeCustomGrid(4, 4, false);
+            setSaveButtonMode();
+            openCustomCreator();
+        }
+
+        function loadPieceForEditing(piece) {
+            editingPieceId = piece.id;
+            customPieceName.value = piece.name;
+            customPieceColor.value = piece.color;
+
+            const rows = piece.shape.length;
+            const cols = piece.shape[0].length;
+            drawerRowsInput.value = rows;
+            drawerColsInput.value = cols;
+            loadShapeIntoGrid(piece.shape);
+            setSaveButtonMode();
+            openCustomCreator();
+        }
+
+        function saveCustomPiece() {
+            const shape = trimShape(customGrid);
+            if (!shape) {
+                alert('Draw at least one block first.');
+                return;
+            }
+
+            const name = (customPieceName.value.trim() || 'Custom').slice(0, 12);
+            const color = customPieceColor.value;
+
+            if (editingPieceId) {
+                const existing = pieceCatalog.find(p => p.id === editingPieceId);
+                if (!existing) {
+                    editingPieceId = null;
+                    setSaveButtonMode();
+                    return;
+                }
+
+                existing.name = name;
+                existing.shape = shape;
+                existing.color = color;
+
+                const customExisting = customPieces.find(p => p.id === editingPieceId);
+                if (customExisting) {
+                    customExisting.name = name;
+                    customExisting.shape = shape;
+                    customExisting.color = color;
+                }
+
+                updateCustomPieceButton(existing);
+
+                if (currentPiece && currentPiece.id === editingPieceId) {
+                    currentPiece.name = name;
+                    currentPiece.color = color;
+                    currentPiece.shape = cloneShape(shape);
+                }
+
+                if (nextPiece && nextPiece.id === editingPieceId) {
+                    nextPiece.name = name;
+                    nextPiece.color = color;
+                    nextPiece.shape = cloneShape(shape);
+                    drawNextPiece();
+                }
+            } else {
+                const id = `custom-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+                const newPiece = {
+                    id,
+                    name,
+                    shape,
+                    color
+                };
+
+                customPieces.push(newPiece);
+                pieceCatalog.push(newPiece);
+                allowedPieces.push(id);
+                addCustomPieceButton(newPiece);
+            }
+
+            // ── Persist to localStorage ──
+            saveCustomPiecesToStorage();
+            saveAllowedPiecesToStorage();
+
+            editingPieceId = null;
+            customPieceName.value = '';
+            customPieceColor.value = '#ffffff';
+            setSaveButtonMode();
+            syncPieceButtonsFromAllowed();
+
+            nextPiece = randomPiece();
+            drawNextPiece();
+        }
+
+        function deleteCustomPiece(pieceId) {
+            const piece = pieceCatalog.find(p => p.id === pieceId);
+            if (!piece || !pieceId.startsWith('custom-')) return;
+
+            const ok = confirm(`Delete custom piece "${piece.name}"?`);
+            if (!ok) return;
+
+            pieceCatalog = pieceCatalog.filter(p => p.id !== pieceId);
+            customPieces = customPieces.filter(p => p.id !== pieceId);
+            allowedPieces = allowedPieces.filter(id => id !== pieceId);
+
+            removeCustomPieceButton(pieceId);
+
+            if (editingPieceId === pieceId) {
+                editingPieceId = null;
+                customPieceName.value = '';
+                customPieceColor.value = '#ffffff';
+                setSaveButtonMode();
+                clearCustomGrid();
+            }
+
+            if (nextPiece && nextPiece.id === pieceId) {
+                nextPiece = randomPiece();
+            }
+
+            if (allowedPieces.length === 0) {
+                allowedPieces = pieceCatalog.map(p => p.id);
+            }
+
+            // ── Persist to localStorage ──
+            saveCustomPiecesToStorage();
+            saveAllowedPiecesToStorage();
+
+            syncPieceButtonsFromAllowed();
+            drawNextPiece();
+        }
+
+        function hidePieceContextMenu() {
+            pieceContextMenu.classList.remove('show');
+            contextTargetPieceId = null;
+        }
+
+        function showPieceContextMenu(x, y, pieceId) {
+            contextTargetPieceId = pieceId;
+            const menuWidth = 170;
+            const menuHeight = 110;
+            const left = Math.min(x, window.innerWidth - menuWidth - 10);
+            const top = Math.min(y, window.innerHeight - menuHeight - 10);
+
+            pieceContextMenu.style.left = `${Math.max(10, left)}px`;
+            pieceContextMenu.style.top = `${Math.max(10, top)}px`;
+            pieceContextMenu.classList.add('show');
         }
 
         function resetGame() {
@@ -696,52 +1333,172 @@
             lines = 0;
             gameOver = false;
             paused = false;
+            pausedBeforeMenu = false;
             secretMenuOpen = false;
             dropCounter = 0;
             dropInterval = 1000;
             currentPiece = null;
             nextPiece = null;
+
             document.getElementById('gameOver').classList.remove('show');
-            document.getElementById('secretMenu').classList.remove('show');
+            secretMenu.classList.remove('show');
+            pauseOverlay.classList.remove('show');
+            hidePieceContextMenu();
+            closeCustomCreator();
+
+            // ── FIX: do NOT reset allowedPieces here — preserve the player's selection.
+            // Just make sure any stale ids (e.g. deleted pieces) are cleaned out.
+            const validIds = new Set(pieceCatalog.map(p => p.id));
+            allowedPieces = allowedPieces.filter(id => validIds.has(id));
+            if (allowedPieces.length === 0) {
+                allowedPieces = pieceCatalog.map(p => p.id);
+            }
+
+            syncPieceButtonsFromAllowed();
             updateScore();
             spawnPiece();
+            drawBoard();
+            drawNextPiece();
         }
 
         function gameLoop(time = 0) {
-            // Keep game paused if regular pause OR secret menu is open
             if (!gameOver && !paused && !secretMenuOpen) {
                 const deltaTime = time - lastTime;
                 lastTime = time;
                 dropCounter += deltaTime;
-                
+
                 if (dropCounter > dropInterval) {
                     moveDown();
                     dropCounter = 0;
                 }
-                
+
                 drawBoard();
                 drawGhostPiece();
                 drawPiece();
-            } else if (paused || secretMenuOpen) {
-                // Keep tracking lastTime to avoid huge jumps when unpausing
+            } else {
                 lastTime = time;
+                if (!gameOver) {
+                    drawBoard();
+                    drawGhostPiece();
+                    drawPiece();
+                }
             }
-            
+
             requestAnimationFrame(gameLoop);
         }
 
+        pieceSelector.addEventListener('click', (e) => {
+            const btn = e.target.closest('.piece-btn');
+            if (!btn) return;
+
+            btn.classList.toggle('selected');
+        });
+
+        pieceSelector.addEventListener('contextmenu', (e) => {
+            const btn = e.target.closest('.piece-btn');
+            if (!btn || btn.dataset.custom !== 'true') return;
+
+            e.preventDefault();
+            showPieceContextMenu(e.clientX, e.clientY, btn.dataset.piece);
+        });
+
+        document.addEventListener('click', () => {
+            hidePieceContextMenu();
+        });
+
+        contextEditBtn.addEventListener('click', () => {
+            const piece = pieceCatalog.find(p => p.id === contextTargetPieceId);
+            if (!piece) return;
+            loadPieceForEditing(piece);
+            hidePieceContextMenu();
+        });
+
+        contextDeleteBtn.addEventListener('click', () => {
+            if (!contextTargetPieceId) return;
+            deleteCustomPiece(contextTargetPieceId);
+            hidePieceContextMenu();
+        });
+
+        document.getElementById('customPieceGrid').addEventListener('click', (e) => {
+            const cell = e.target.closest('.custom-cell');
+            if (!cell) return;
+
+            const x = parseInt(cell.dataset.x, 10);
+            const y = parseInt(cell.dataset.y, 10);
+            customGrid[y][x] = !customGrid[y][x];
+            renderCustomGrid();
+        });
+
+        document.getElementById('saveCustomPieceBtn').addEventListener('click', saveCustomPiece);
+
+        document.getElementById('clearCustomPieceBtn').addEventListener('click', clearCustomGrid);
+
+        document.getElementById('resizeDrawerBtn').addEventListener('click', () => {
+            const { rows, cols } = getDrawerSize();
+            drawerRowsInput.value = rows;
+            drawerColsInput.value = cols;
+            resizeCustomGrid(rows, cols, true);
+        });
+
+        document.getElementById('confirmRigBtn').addEventListener('click', () => {
+            const selected = Array.from(getPieceButtons())
+                .filter(b => b.classList.contains('selected'))
+                .map(b => b.dataset.piece);
+
+            if (selected.length === 0) {
+                alert('You must select at least one piece!');
+                return;
+            }
+
+            allowedPieces = selected;
+
+            // ── Persist the confirmed selection ──
+            saveAllowedPiecesToStorage();
+
+            nextPiece = randomPiece();
+            drawNextPiece();
+            closeSecretMenu();
+        });
+
+        document.getElementById('resetRigBtn').addEventListener('click', () => {
+            allowedPieces = pieceCatalog.map(p => p.id);
+            saveAllowedPiecesToStorage();
+            syncPieceButtonsFromAllowed();
+            nextPiece = randomPiece();
+            drawNextPiece();
+        });
+
+        document.getElementById('closeRigBtn').addEventListener('click', closeSecretMenu);
+
+        toggleCustomCreatorBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (customCreator.classList.contains('show')) {
+                closeCustomCreator();
+            } else {
+                if (!editingPieceId) {
+                    drawerRowsInput.value = drawerRowsInput.value || 4;
+                    drawerColsInput.value = drawerColsInput.value || 4;
+                    resizeCustomGrid(
+                        Math.max(1, Math.min(12, parseInt(drawerRowsInput.value, 10) || 4)),
+                        Math.max(1, Math.min(12, parseInt(drawerColsInput.value, 10) || 4)),
+                        false
+                    );
+                }
+                openCustomCreator();
+                setSaveButtonMode();
+            }
+        });
+
         document.addEventListener('keydown', (e) => {
-            // Secret Menu Trigger
+            if (e.key === 'Escape') {
+                hidePieceContextMenu();
+                return;
+            }
+
             if (e.key === 'c' || e.key === 'C') {
                 if (!gameOver) {
-                    secretMenuOpen = !secretMenuOpen;
-                    const menuEl = document.getElementById('secretMenu');
-                    
-                    if (secretMenuOpen) {
-                        bgMusic.pause();
-                        menuEl.classList.add('show');
-                        document.getElementById('pauseOverlay').classList.remove('show');
-                        paused = true; // Auto-pause while menu is open
+                    if (!secretMenuOpen) {
+                        openSecretMenu();
                     } else {
                         closeSecretMenu();
                     }
@@ -763,12 +1520,11 @@
                 return;
             }
 
-            // Block movement keys if paused or secret menu is open
             if (gameOver || paused || secretMenuOpen) {
                 return;
             }
-            
-            switch(e.key) {
+
+            switch (e.key) {
                 case 'ArrowLeft':
                     moveLeft();
                     break;
@@ -780,14 +1536,14 @@
                     dropCounter = 0;
                     break;
                 case 'ArrowUp':
-                    currentPiece.rotate();
+                    if (currentPiece) currentPiece.rotate();
                     break;
                 case ' ':
                     e.preventDefault();
                     hardDrop();
                     break;
             }
-            
+
             drawBoard();
             drawGhostPiece();
             drawPiece();
@@ -796,76 +1552,6 @@
         document.getElementById('restartBtn').addEventListener('click', resetGame);
         document.getElementById('restartBtn2').addEventListener('click', resetGame);
 
-        // --- Secret Menu Logic ---
-        const pieceBtns = document.querySelectorAll('.piece-btn');
-        const secretMenu = document.getElementById('secretMenu');
-
-        // Toggle piece selection in the menu
-        pieceBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                btn.classList.toggle('selected');
-            });
-        });
-
-        function closeSecretMenu() {
-            secretMenu.classList.remove('show');
-            secretMenuOpen = false;
-            
-            // If regular pause was inactive, resume game and music
-            if (!document.getElementById('pauseOverlay').classList.contains('show')) {
-                paused = false;
-                bgMusic.play().catch(e => console.log('Audio play failed:', e));
-            }
-
-            // Sync UI back to the true allowedPieces list (in case they closed without saving)
-            pieceBtns.forEach(b => {
-                const pieceVal = parseInt(b.dataset.piece);
-                if (allowedPieces.includes(pieceVal)) {
-                    b.classList.add('selected');
-                } else {
-                    b.classList.remove('selected');
-                }
-            });
-        }
-
-        // Apply new rigged piece list
-        document.getElementById('confirmRigBtn').addEventListener('click', () => {
-            const selected = Array.from(pieceBtns)
-                .filter(b => b.classList.contains('selected'))
-                .map(b => parseInt(b.dataset.piece));
-            
-            if (selected.length === 0) {
-                alert("You must select at least one piece!");
-                return;
-            }
-            
-            allowedPieces = selected;
-            
-            // Instantly update the next piece to reflect new rules
-            nextPiece = randomPiece(); 
-            drawNextPiece();
-            
-            closeSecretMenu();
-        });
-
-        // Reset to normal piece selection
-        document.getElementById('resetRigBtn').addEventListener('click', () => {
-            allowedPieces = [1, 2, 3, 4, 5, 6, 7];
-            pieceBtns.forEach(b => b.classList.add('selected'));
-            nextPiece = randomPiece();
-            drawNextPiece();
-        });
-
-        // Cancel and close
-        document.getElementById('closeRigBtn').addEventListener('click', closeSecretMenu);
-
-        // Audio controls
-        const bgMusic = document.getElementById('bgMusic');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const volumePercent = document.getElementById('volumePercent');
-        const pauseOverlay = document.getElementById('pauseOverlay');
-
-        // Load saved volume or use default
         const savedVolume = localStorage.getItem('tetrisVolume') || 50;
         volumeSlider.value = savedVolume;
         bgMusic.volume = savedVolume / 100;
@@ -878,20 +1564,34 @@
             localStorage.setItem('tetrisVolume', e.target.value);
         });
 
-        // Start music when user interacts with the page
         document.addEventListener('keydown', () => {
-            // Don't auto-play if they triggered secret menu or pause immediately
-            if (bgMusic.paused && !paused && !secretMenuOpen) {
+            if (bgMusic.paused && !paused && !secretMenuOpen && !gameOver) {
                 bgMusic.play().catch(e => console.log('Audio play failed:', e));
             }
         }, { once: true });
 
         document.addEventListener('click', () => {
-            if (bgMusic.paused && !paused && !secretMenuOpen) {
+            if (bgMusic.paused && !paused && !secretMenuOpen && !gameOver) {
                 bgMusic.play().catch(e => console.log('Audio play failed:', e));
             }
         }, { once: true });
 
+        drawerRowsInput.addEventListener('change', () => {
+            const { rows, cols } = getDrawerSize();
+            drawerRowsInput.value = rows;
+            drawerColsInput.value = cols;
+            resizeCustomGrid(rows, cols, true);
+        });
+
+        drawerColsInput.addEventListener('change', () => {
+            const { rows, cols } = getDrawerSize();
+            drawerRowsInput.value = rows;
+            drawerColsInput.value = cols;
+            resizeCustomGrid(rows, cols, true);
+        });
+
+        setSaveButtonMode();
+        resizeCustomGrid(4, 4, false);
         resetGame();
         gameLoop();
     </script>
