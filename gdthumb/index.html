@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <style>
+      body {
+	    background-color: black;
+        background-image: url("https://levelthumbs.prevter.me/thumbnail/1");
+      }
+      input {
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <input id="yes" type="number" placeholder="type gd level id" value="1">
+
+    <script>
+      const input = document.getElementById("yes");
+
+      input.addEventListener("input", () => {
+        document.body.style.backgroundImage =
+          `url("https://levelthumbs.prevter.me/thumbnail/${encodeURIComponent(input.value)}")`;
+      });
+    </script>
+  </body>
+</html>
